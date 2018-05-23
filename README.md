@@ -54,7 +54,7 @@
 │   │   │   └── search-box.vue
 │   │   ├── search-list
 │   │   │   └── search-list.vue
-│   │   ├── slider
+│   │   ├── slider (轮播图组件)
 │   │   │   └── slider.vue
 │   │   ├── song-list
 │   │   │   ├── first@2x.png
@@ -146,4 +146,13 @@
 
 ## 首页
 # 轮播图组件
+技术点：
+1.滚动利用better-scroll插件。
+2.轮播图组件采用动态计算的方式实现自适应。
+数据来源：
+利用QQ音乐的Jsonp接口：
+
+  https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&platform=h5&uin=0&needNewCode=1&jsonpCallback=__jp0
+
+#
 
