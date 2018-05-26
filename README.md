@@ -39,7 +39,7 @@
 │   │   │   └── listview.vue
 │   │   ├── loading
 │   │   │   ├── loading.gif
-│   │   │   └── loading.vue
+│   │   │   └── loading.vue（加载圈组件）
 │   │   ├── no-result
 │   │   │   ├── no-result.vue
 │   │   │   ├── no-result@2x.png
@@ -48,7 +48,7 @@
 │   │   │   └── progress-bar.vue
 │   │   ├── progress-circle
 │   │   │   └── progress-circle.vue
-│   │   ├── scroll
+│   │   ├── scroll（滚动组件）
 │   │   │   └── scroll.vue
 │   │   ├── search-box
 │   │   │   └── search-box.vue
@@ -145,14 +145,18 @@
 ```
 
 ## 首页
-# 轮播图组件
-技术点：
+### 轮播图组件
+#### 技术点：
 1.滚动利用better-scroll插件。
 2.轮播图组件采用动态计算的方式实现自适应。
-数据来源：
+3.当fastclick插件与better-scroll插件的点击事件冲突时，可以通过fastclick的样式needsclick解决。
+#### 数据来源：
 利用QQ音乐的Jsonp接口：
+https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&platform=h5&uin=0&needNewCode=1&jsonpCallback=__jp0
 
-  https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&platform=h5&uin=0&needNewCode=1&jsonpCallback=__jp0
-
-#
-
+# 歌单组件
+#### 技术点：
+1.由于部分请求头信息受浏览器控制，js无法设置。因此在webpack.dev.conf.js文件中配置一个node.js代理，经其转发然后返回所需数据。
+2.整体滚动仍然用betterScroll，由于多次使用到它，因此在此处抽出一个通用sroll组件。由于轮播图、歌单是两个不同接口数据渲染的，scroll组件需刷新两次，轮播图加载时刷新，歌单加载时刷新这样便能实现整体滚动。
+3.使用vue-lazyload实现歌单图片懒加载。
+4.通过一个loading组件优化用户体验。

@@ -99,6 +99,9 @@ export default {
       })
       // 监听一次滚动开始之前
       this.slider.on('beforeScrollStart', () => {
+        if (this.autoPlay) {
+          clearTimeout(this.timer)
+        }
       })
       // 监听一次滚动结束
       this.slider.on('scrollEnd', () => {

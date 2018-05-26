@@ -9,6 +9,16 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+// require by ckr
+const express = require('express')
+const axios = require('axios')
+// 配置代理（由于部分请求头信息受浏览器控制，js无法设置）
+var app = new express()
+var apiRoutes = express.Router()
+app.use('/api', apiRoutes)
+
+
+
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -42,6 +52,25 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    // 首先执行
+    before(app) {
+      app.get('/api/getDiscList', (req, res) => {
+        // 模拟请求
+        var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          // 将响应数据回传
+          res.json(response.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
     }
   },
   plugins: [

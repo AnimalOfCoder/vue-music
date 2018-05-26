@@ -1,26 +1,44 @@
 <template>
   <div class="recommend">
-    <div class="recommend-content">
-      <!-- 当获取到recommends时才去渲染slider-->
-      <div v-if="recommends.length" class="slider-wrapper">
-        <slider>
-          <div v-for="item in recommends" :key="item.value">
-            <a :href="item.linkUrl">
-              <img :src="item.picUrl">
-            </a>
-          </div>
-        </slider>
+    <scroll ref="scroll" class="recommend-content" :data="discList">
+      <div>
+        <!-- 当获取到recommends时才去渲染slider-->
+        <div v-if="recommends.length" class="slider-wrapper">
+          <slider>
+            <div v-for="item in recommends" :key="item.value">
+              <a :href="item.linkUrl">
+                <img class="needsclick" :src="item.picUrl" @load="loadImage">
+              </a>
+            </div>
+          </slider>
+        </div>
+        <!-- 歌单 -->
+        <div class="recommend-list">
+          <h1 class="list-title">热门歌单推荐</h1>
+          <ul style="height: 100%;overflow: hidden;">
+            <li v-for="item in discList" :key="item.value" class="item">
+              <div class="icon">
+                <img width="60" height="60" v-lazy="item.imgurl"/>
+              </div>
+              <div class="text">
+                <h2 class="name" v-html="item.creator.name"></h2>
+                <p class="desc" v-html="item.dissname"></p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="recommend-list">
-        <h1 class="list-title"></h1>
-        <ul>
-        </ul>
-      </div>
-    </div>
+      <!-- loading -->
+      <div class="loading-container" v-show="!discList.length">
+          <loading></loading>
+        </div>
+    </scroll>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import Loading from 'base/loading/loading'
+import Scroll from 'base/scroll/scroll'
 import Slider from 'base/slider/slider'
 import {getRecommend, getDiscList} from 'api/recommend'
 import {ERR_OK} from 'api/config'
@@ -28,11 +46,14 @@ import {ERR_OK} from 'api/config'
 export default {
   data() {
     return {
-      recommends: []
+      recommends: [],
+      discList: []
     }
   },
   created() {
+    // 获取轮播图
     this._getRecommend()
+    // 获取歌单
     this._getDiscList()
   },
   methods: {
@@ -46,13 +67,23 @@ export default {
     _getDiscList() {
       getDiscList().then((res) => {
         if (res.code === ERR_OK) {
-          console.log(res.data)
+          this.discList = res.data.list
+          console.log(this.discList)
         }
       })
+    },
+    // 防止sroll组件刷新时轮播图未加载，造成计算缺失。因此当轮播图加载时，刷新一次scroll组件
+    loadImage() {
+      if (!this.checkloaded) {
+        this.checkloaded = true
+        this.$refs.scroll.refresh()
+      }
     }
   },
   components: {
-    Slider
+    Slider,
+    Scroll,
+    Loading
   }
 
 }
