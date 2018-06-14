@@ -30,12 +30,12 @@
 │   │   ├── rank.js
 │   │   ├── recommend.js （获取推荐页面的图片）
 │   │   ├── search.js
-│   │   ├── singer.js
+│   │   ├── singer.js（获取歌手列表数据）
 │   │   └── song.js
 │   ├── base（技术组件）
 │   │   ├── confirm
 │   │   │   └── confirm.vue
-│   │   ├── listview
+│   │   ├── listview（列表组件）
 │   │   │   └── listview.vue
 │   │   ├── loading
 │   │   │   ├── loading.gif
@@ -79,10 +79,10 @@
 │   │   ├── js（公用js库）
 │   │   │   ├── cache.js
 │   │   │   ├── config.js
-│   │   │   ├── dom.js （DOM相关操作的代码）
-│   │   │   ├── jsonp.js (jsonp请求的封装)
+│   │   │   ├── dom.js （DOM相关操作）
+│   │   │   ├── jsonp.js (封装jsonp请求)
 │   │   │   ├── mixin.js
-│   │   │   ├── singer.js
+│   │   │   ├── singer.js（歌手类的封装）
 │   │   │   ├── song.js
 │   │   │   └── util.js
 │   │   └── stylus（通用样式）
@@ -146,17 +146,29 @@
 
 ## 首页
 ### 轮播图组件
-#### 技术点：
-1.滚动利用better-scroll插件。
-2.轮播图组件采用动态计算的方式实现自适应。
-3.当fastclick插件与better-scroll插件的点击事件冲突时，可以通过fastclick的样式needsclick解决。
-#### 数据来源：
-利用QQ音乐的Jsonp接口：
+#### 总结
+1.滚动利用better-scroll插件。</br>
+2.轮播图组件采用动态计算的方式实现自适应。</br>
+3.当fastclick插件与better-scroll插件的点击事件冲突时，可以通过fastclick的样式needsclick解决。</br>
+#### 数据来源
+QQ音乐（移动端）Jsonp接口：</br>
 https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&platform=h5&uin=0&needNewCode=1&jsonpCallback=__jp0
 
-# 歌单组件
-#### 技术点：
-1.由于部分请求头信息受浏览器控制，js无法设置。因此在webpack.dev.conf.js文件中配置一个node.js代理，经其转发然后返回所需数据。
-2.整体滚动仍然用betterScroll，由于多次使用到它，因此在此处抽出一个通用sroll组件。由于轮播图、歌单是两个不同接口数据渲染的，scroll组件需刷新两次，轮播图加载时刷新，歌单加载时刷新这样便能实现整体滚动。
-3.使用vue-lazyload实现歌单图片懒加载。
-4.通过一个loading组件优化用户体验。
+### 歌单组件
+#### 总结
+1.由于部分请求头信息受浏览器控制，js无法设置。因此在webpack.dev.conf.js文件中配置一个node.js代理，经其转发然后返回所需数据。</br>
+2.整体滚动仍然用betterScroll，由于多次使用到它，因此在此处抽出一个通用sroll组件。由于轮播图、歌单是两个不同接口数据渲染的，scroll组件需刷新两次，轮播图加载时刷新，歌单加载时刷新这样便能实现整体滚动。</br>
+3.使用vue-lazyload实现歌单图片懒加载。</br>
+4.通过一个loading组件优化用户体验。</br>
+#### 数据来源
+QQ音乐（PC端）接口：</br>
+https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&_=1527309684144
+
+## 歌手页面
+#### 总结
+1.利用出左侧每组歌手高度形成的区间，通过计算y轴滚动距离落在哪个区间内，从而实现左右菜单联动。
+2.通过观测标题栏与固定标题栏之间的间距变化，计算出固定标题栏需要上移的距离，实现标题栏重合时的推动效果。
+#### 数据来源
+QQ音乐（PC端）jsonp接口：</br>
+https://c.y.qq.com/v8/fcg-bin/v8.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&channel=singer&page=list&key=all_all_all&pagesize=100&pagenum=1&hostUin=0&needNewCode=0&platform=yqq&jsonpCallback=__jp0
+
