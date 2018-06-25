@@ -4,7 +4,7 @@
       <li class="list-group" v-for="group in data" :key="group.value" ref="listGroup">
         <h2 class="list-group-title">{{group.title}}</h2>
         <ul>
-          <li v-for="item in group.items" :key="item.value" class="list-group-item">
+          <li @click="selectItem(item)" v-for="item in group.items" :key="item.value" class="list-group-item">
             <img class="avatar" v-lazy="item.avatar">
             <span class="name">{{item.name}}</span>
           </li>
@@ -65,6 +65,10 @@ export default {
     }
   },
   methods: {
+    selectItem(item) {
+      // 将事件派发出去
+      this.$emit('select', item)
+    },
     onShortcutTouchStart(e) {
       let anchorIndex = getData(e.target, 'index')
       // 首次触摸时Y轴偏移

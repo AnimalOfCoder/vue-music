@@ -1,6 +1,6 @@
 <template>
   <div class="singer">
-    <list-view :data="singerList"></list-view>
+    <list-view @select="selectSinger" :data="singerList"></list-view>
     <router-view></router-view>
   </div>
 </template>
@@ -10,6 +10,8 @@ import Singer from 'common/js/singer'
 import {getSingerList} from 'api/singer'
 import {ERR_OK} from 'api/config'
 import ListView from 'base/listview/listview'
+import {mapMutations} from 'vuex'
+
 // 热门歌手长度
 const HOT_SINGER_LEN = 10
 const HOT_NAME = '热门'
@@ -23,6 +25,14 @@ export default {
     this._getSingerList()
   },
   methods: {
+    // 选中歌手时触发的方法
+    selectSinger(singer) {
+      // 路由至歌手详情页
+      this.$router.push({
+        path: `/singer/${singer.id}`
+      })
+      this.setSinger(singer)
+    },
     // 获取歌手列表数据
     _getSingerList() {
       getSingerList().then((res) => {
@@ -76,9 +86,12 @@ export default {
       ret.sort((a, b) => {
         return a.title.charCodeAt() - b.title.charCodeAt()
       })
-      console.log(hot.concat(ret))
       return hot.concat(ret)
-    }
+    },
+    // 映射mutations中的方法（vuex写数据的语法糖）
+    ...mapMutations({
+      setSinger: 'SET_SINGER' // 将 `this.setSinger()` 映射为 `this.$store.commit('SET_SINGER')`
+    })
   },
   components: {
     ListView

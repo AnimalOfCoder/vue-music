@@ -56,7 +56,7 @@
 │   │   │   └── search-list.vue
 │   │   ├── slider (轮播图组件)
 │   │   │   └── slider.vue
-│   │   ├── song-list
+│   │   ├── song-list（通用歌曲列表组件）
 │   │   │   ├── first@2x.png
 │   │   │   ├── first@3x.png
 │   │   │   ├── second@2x.png
@@ -101,7 +101,7 @@
 │   │   │   ├── logo@2x.png
 │   │   │   ├── logo@3x.png
 │   │   │   └── m-header.vue
-│   │   ├── music-list
+│   │   ├── music-list（歌手详情-歌曲列表组件）
 │   │   │   └── music-list.vue
 │   │   ├── player
 │   │   │   └── player.vue
@@ -131,7 +131,7 @@
 │   └── store（存放vuex相关代码）
 │       ├── actions.js
 │       ├── getters.js
-│       ├── index.js
+│       ├── index.js（组装模块并导出 store）
 │       ├── mutation-types.js
 │       ├── mutations.js
 │       └── state.js
@@ -144,8 +144,8 @@
 
 ```
 
-## 首页
-### 轮播图组件
+## 首页（recommend）
+### 轮播图组件（slider）
 #### 总结
 1.滚动利用better-scroll插件。</br>
 2.轮播图组件采用动态计算的方式实现自适应。</br>
@@ -154,7 +154,7 @@
 QQ音乐（移动端）Jsonp接口：</br>
 https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&platform=h5&uin=0&needNewCode=1&jsonpCallback=__jp0
 
-### 歌单组件
+### 歌单组件（listview）
 #### 总结
 1.由于部分请求头信息受浏览器控制，js无法设置。因此在webpack.dev.conf.js文件中配置一个node.js代理，经其转发然后返回所需数据。</br>
 2.整体滚动仍然用betterScroll，由于多次使用到它，因此在此处抽出一个通用sroll组件。由于轮播图、歌单是两个不同接口数据渲染的，scroll组件需刷新两次，轮播图加载时刷新，歌单加载时刷新这样便能实现整体滚动。</br>
@@ -165,10 +165,18 @@ QQ音乐（PC端）接口：</br>
 https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&_=1527309684144
 
 ## 歌手页面
+### 歌手列表页面（singer）
 #### 总结
-1.利用出左侧每组歌手高度形成的区间，通过计算y轴滚动距离落在哪个区间内，从而实现左右菜单联动。
-2.通过观测标题栏与固定标题栏之间的间距变化，计算出固定标题栏需要上移的距离，实现标题栏重合时的推动效果。
+1.利用出左侧每组歌手高度形成的区间，通过计算y轴滚动距离落在哪个区间内，从而实现左右菜单联动。</br>
+2.通过观测标题栏与固定标题栏之间的间距变化，计算出固定标题栏需要上移的距离，实现标题栏重合时的推动效果。</br>
 #### 数据来源
 QQ音乐（PC端）jsonp接口：</br>
 https://c.y.qq.com/v8/fcg-bin/v8.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&channel=singer&page=list&key=all_all_all&pagesize=100&pagenum=1&hostUin=0&needNewCode=0&platform=yqq&jsonpCallback=__jp0
-
+## 歌手详情页（singer-detail）
+#### 总结
+1.引入vuex管理应用状态，实现歌手详情数据的传递</br>
+2.列表滚动依然使用better-scroll。
+#### 数据来源
+QQ音乐（PC端）Jsonp接口：</br>
+https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?g_tk=5381&jsonpCallback=MusicJsonCallbacksinger_track&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&singermid=002J4UUk29y8BY&order=listen&begin=0&num=30&songstatus=1
+根据歌手id（singermid）、begin（起始序号）、num（数量）查询
