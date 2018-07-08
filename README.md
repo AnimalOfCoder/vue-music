@@ -178,15 +178,15 @@ https://c.y.qq.com/v8/fcg-bin/v8.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=
 2.列表滚动依然使用better-scroll。
 #### 数据来源
 QQ音乐（PC端）Jsonp接口：</br>
-https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?g_tk=5381&jsonpCallback=MusicJsonCallbacksinger_track&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&singermid=002J4UUk29y8BY&order=listen&begin=0&num=30&songstatus=1
+https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?g_tk=5381&jsonpCallback=MusicJsonCallbacksinger_track&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&singermid=002J4UUk29y8BY&order=listen&begin=0&num=30&songstatus=1</br>
 根据歌手id（singermid）、begin（起始序号）、num（数量）查询
 
 ## 播放器组件
-###总结
+### 总结
 1.相关数据由vuex统一管理。如播放状态、播放器伸缩、歌曲切换等。</br>
 2.播放器展开或缩小时唱片的动画，通过第三方库 create-keyframe-animation（一个使用js动态创建CSS3的框架）实现。</br>
 3.接口返回歌词是base64格式的，解码base64的库为 js-base64。歌词解析使用的库为 lyric-parser。</br>
 4.底部播放器适配推荐列表、歌曲列表、歌手列表，通过 vue提供的混入(mixins) 提高代码复用率。</br>
 #### 数据来源
-QQ音乐歌曲接口：http://ws.stream.qqmusic.qq.com/C100' + songmid + '.m4a?fromtag=0&guid=126548448
+QQ音乐歌曲接口：http://ws.stream.qqmusic.qq.com/C100' + songmid + '.m4a?fromtag=0&guid=126548448</br>
 songmid可在获取歌手详情的对应歌曲中拿到
