@@ -65,6 +65,10 @@ export default {
     }
   },
   methods: {
+    // scroll组件刷新
+    refresh() {
+      this.$refs.listview.refresh()
+    },
     selectItem(item) {
       // 将事件派发出去
       this.$emit('select', item)

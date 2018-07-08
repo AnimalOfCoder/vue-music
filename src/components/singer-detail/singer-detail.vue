@@ -40,12 +40,12 @@ export default {
       }
       getSingerDetail(this.singer.id).then((res) => {
         if (res.code === ERR_OK) {
-          this.songs = this._normalizeSong(res.data.list)
+          this.songs = this._normalizeSongs(res.data.list)
         }
       })
     },
     // 格式化歌曲
-    _normalizeSong(list) {
+    _normalizeSongs(list) {
       let ret = []
       list.forEach((item) => {
         let {musicData} = item
