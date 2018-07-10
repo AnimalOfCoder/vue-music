@@ -95,7 +95,7 @@
 │   ├── components（业务组件）
 │   │   ├── add-song
 │   │   │   └── add-song.vue
-│   │   ├── disc
+│   │   ├── disc（歌单详情）
 │   │   │   └── disc.vue
 │   │   ├── m-header（头部）
 │   │   │   ├── logo@2x.png
@@ -150,9 +150,6 @@
 1.滚动利用better-scroll插件。</br>
 2.轮播图组件采用动态计算的方式实现自适应。</br>
 3.当fastclick插件与better-scroll插件的点击事件冲突时，可以通过fastclick的样式needsclick解决。</br>
-#### 数据来源
-QQ音乐（移动端）Jsonp接口：</br>
-https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&platform=h5&uin=0&needNewCode=1&jsonpCallback=__jp0
 
 ### 歌单组件（listview）
 #### 总结
@@ -160,26 +157,21 @@ https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=19280934
 2.整体滚动仍然用betterScroll，由于多次使用到它，因此在此处抽出一个通用sroll组件。由于轮播图、歌单是两个不同接口数据渲染的，scroll组件需刷新两次，轮播图加载时刷新，歌单加载时刷新这样便能实现整体滚动。</br>
 3.使用vue-lazyload实现歌单图片懒加载。</br>
 4.通过一个loading组件优化用户体验。</br>
-#### 数据来源
-QQ音乐（PC端）接口：</br>
-https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&_=1527309684144
+
+### 歌单详情组件（disc）
+#### 总结
+复用歌手详情页的歌曲列表（music-list）即可。
 
 ## 歌手页面
 ### 歌手列表页面（singer）
 #### 总结
 1.利用出左侧每组歌手高度形成的区间，通过计算y轴滚动距离落在哪个区间内，从而实现左右菜单联动。</br>
 2.通过观测标题栏与固定标题栏之间的间距变化，计算出固定标题栏需要上移的距离，实现标题栏重合时的推动效果。</br>
-#### 数据来源
-QQ音乐（PC端）jsonp接口：</br>
-https://c.y.qq.com/v8/fcg-bin/v8.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&channel=singer&page=list&key=all_all_all&pagesize=100&pagenum=1&hostUin=0&needNewCode=0&platform=yqq&jsonpCallback=__jp0
 ## 歌手详情页（singer-detail）
 #### 总结
 1.引入vuex管理应用状态，实现歌手详情数据的传递</br>
 2.列表滚动依然使用better-scroll。
-#### 数据来源
-QQ音乐（PC端）Jsonp接口：</br>
-https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?g_tk=5381&jsonpCallback=MusicJsonCallbacksinger_track&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&singermid=002J4UUk29y8BY&order=listen&begin=0&num=30&songstatus=1</br>
-根据歌手id（singermid）、begin（起始序号）、num（数量）查询
+
 
 ## 播放器组件
 ### 总结
@@ -187,6 +179,4 @@ https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?g_tk=5381&jsonpCallback
 2.播放器展开或缩小时唱片的动画，通过第三方库 create-keyframe-animation（一个使用js动态创建CSS3的框架）实现。</br>
 3.接口返回歌词是base64格式的，解码base64的库为 js-base64。歌词解析使用的库为 lyric-parser。</br>
 4.底部播放器适配推荐列表、歌曲列表、歌手列表，通过 vue提供的混入(mixins) 提高代码复用率。</br>
-#### 数据来源
-QQ音乐歌曲接口：http://ws.stream.qqmusic.qq.com/C100' + songmid + '.m4a?fromtag=0&guid=126548448</br>
-songmid可在获取歌手详情的对应歌曲中拿到
+
