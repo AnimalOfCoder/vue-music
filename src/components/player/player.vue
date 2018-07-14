@@ -222,7 +222,7 @@ export default {
       }
       this.setPlayingState(!this.playing)
       if (this.currentLyric) {
-        this.currentLyric.togglePlaying()
+        this.currentLyric.togglePlay()
       }
     },
     // 歌曲结束后
@@ -349,6 +349,9 @@ export default {
     },
     getLyric() {
       this.currentSong.getLyric().then((lyric) => {
+        if (this.currentSong.lyric !== lyric) {
+          return
+        }
         this.currentLyric = new Lyric(lyric, this.handleLyric)
         if (this.playing) {
           this.currentLyric.play()

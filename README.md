@@ -27,8 +27,8 @@
 │   ├── App.vue
 │   ├── api（后端请求相关代码，包括ajax、jsonp这些请求）
 │   │   ├── config.js
-│   │   ├── rank.js
-│   │   ├── recommend.js （获取推荐页面的图片）
+│   │   ├── rank.js（获取歌单排行榜）
+│   │   ├── recommend.js（获取推荐页面的图片）
 │   │   ├── search.js
 │   │   ├── singer.js（获取歌手列表数据）
 │   │   └── song.js
@@ -121,7 +121,7 @@
 │   │   │   └── suggest.vue
 │   │   ├── tab (导航栏)
 │   │   │   └── tab.vue
-│   │   ├── top-list
+│   │   ├── top-list（排行详情页）
 │   │   │   └── top-list.vue
 │   │   └── user-center
 │   │       └── user-center.vue
@@ -172,11 +172,14 @@
 1.引入vuex管理应用状态，实现歌手详情数据的传递</br>
 2.列表滚动依然使用better-scroll。
 
-
-## 播放器组件
+## 播放器组件（player）
 ### 总结
 1.相关数据由vuex统一管理。如播放状态、播放器伸缩、歌曲切换等。</br>
 2.播放器展开或缩小时唱片的动画，通过第三方库 create-keyframe-animation（一个使用js动态创建CSS3的框架）实现。</br>
 3.接口返回歌词是base64格式的，解码base64的库为 js-base64。歌词解析使用的库为 lyric-parser。</br>
 4.底部播放器适配推荐列表、歌曲列表、歌手列表，通过 vue提供的混入(mixins) 提高代码复用率。</br>
 
+## 排行榜页面（rank)
+### 总结
+1.排行榜歌单详情直接复用music-list组件即可。</br>
+2.为songList扩展一个排序样式，实现排行榜专属的歌单效果。</br>
