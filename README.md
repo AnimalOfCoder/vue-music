@@ -33,13 +33,13 @@
 │   │   ├── singer.js（获取歌手列表数据）
 │   │   └── song.js
 │   ├── base（技术组件）
-│   │   ├── confirm
+│   │   ├── confirm（弹窗组件）
 │   │   │   └── confirm.vue
 │   │   ├── listview（列表组件）
 │   │   │   └── listview.vue
-│   │   ├── loading
+│   │   ├── loading（加载圈组件）
 │   │   │   ├── loading.gif
-│   │   │   └── loading.vue（加载圈组件）
+│   │   │   └── loading.vue
 │   │   ├── no-result
 │   │   │   ├── no-result.vue
 │   │   │   ├── no-result@2x.png
@@ -50,9 +50,9 @@
 │   │   │   └── progress-circle.vue
 │   │   ├── scroll（滚动组件）
 │   │   │   └── scroll.vue
-│   │   ├── search-box
+│   │   ├── search-box（搜索框组件）
 │   │   │   └── search-box.vue
-│   │   ├── search-list
+│   │   ├── search-list（搜索历史列表组件）
 │   │   │   └── search-list.vue
 │   │   ├── slider (轮播图组件)
 │   │   │   └── slider.vue
@@ -77,13 +77,13 @@
 │   │   ├── image（公用图片）
 │   │   │   └── default.png
 │   │   ├── js（公用js库）
-│   │   │   ├── cache.js
-│   │   │   ├── config.js
+│   │   │   ├── cache.js（浏览器缓存相关操作）
+│   │   │   ├── config.js（播放模式配置）
 │   │   │   ├── dom.js （DOM相关操作）
 │   │   │   ├── jsonp.js (封装jsonp请求)
-│   │   │   ├── mixin.js
+│   │   │   ├── mixin.js（用于自适应底部播放器）
 │   │   │   ├── singer.js（歌手类的封装）
-│   │   │   ├── song.js
+│   │   │   ├── song.js（歌曲相关操作）
 │   │   │   └── util.js
 │   │   └── stylus（通用样式）
 │   │       ├── base.styl
@@ -103,9 +103,9 @@
 │   │   │   └── m-header.vue
 │   │   ├── music-list（歌手详情-歌曲列表组件）
 │   │   │   └── music-list.vue
-│   │   ├── player
+│   │   ├── player（播放器）
 │   │   │   └── player.vue
-│   │   ├── playlist
+│   │   ├── playlist（播放列表）
 │   │   │   └── playlist.vue
 │   │   ├── rank（排名）
 │   │   │   └── rank.vue
@@ -115,9 +115,9 @@
 │   │   │   └── search.vue
 │   │   ├── singer（歌手）
 │   │   │   └── singer.vue
-│   │   ├── singer-detail
+│   │   ├── singer-detail（歌手详情）
 │   │   │   └── singer-detail.vue
-│   │   ├── suggest
+│   │   ├── suggest（检索词推荐）
 │   │   │   └── suggest.vue
 │   │   ├── tab (导航栏)
 │   │   │   └── tab.vue
@@ -183,3 +183,8 @@
 ### 总结
 1.排行榜歌单详情直接复用music-list组件即可。</br>
 2.为songList扩展一个排序样式，实现排行榜专属的歌单效果。</br>
+
+## 搜索页面（search）
+### 总结
+1.通过better-scroll组件滚动到底部时派发事件，并在suggest组件监听该事件从而实现上滑刷新。</br>
+2.搜索历史的缓存，使用localstorage，为了操作更便捷，引入黄轶老师写的[Storage库-goodStorage](https://github.com/ustbhuangyi/storage)</br>
