@@ -64,9 +64,9 @@
 │   │   │   ├── song-list.vue
 │   │   │   ├── third@2x.png
 │   │   │   └── third@3x.png
-│   │   ├── switches
+│   │   ├── switches（tab组件）
 │   │   │   └── switches.vue
-│   │   └── top-tip
+│   │   └── top-tip（提示组件）
 │   │       └── top-tip.vue
 │   ├── common（存放通用静态资源）
 │   │   ├── fonts（字体文件）
@@ -93,7 +93,7 @@
 │   │       ├── reset.styl
 │   │       └── variable.styl
 │   ├── components（业务组件）
-│   │   ├── add-song
+│   │   ├── add-song（添加歌曲组件）
 │   │   │   └── add-song.vue
 │   │   ├── disc（歌单详情）
 │   │   │   └── disc.vue
@@ -105,7 +105,7 @@
 │   │   │   └── music-list.vue
 │   │   ├── player（播放器）
 │   │   │   └── player.vue
-│   │   ├── playlist（播放列表）
+│   │   ├── playlist（播放器歌曲列表组件）
 │   │   │   └── playlist.vue
 │   │   ├── rank（排名）
 │   │   │   └── rank.vue
@@ -123,7 +123,7 @@
 │   │   │   └── tab.vue
 │   │   ├── top-list（排行详情页）
 │   │   │   └── top-list.vue
-│   │   └── user-center
+│   │   └── user-center（用户中心组件）
 │   │       └── user-center.vue
 │   ├── main.js（入口文件）
 │   ├── router（路由）
@@ -188,3 +188,17 @@
 ### 总结
 1.通过better-scroll组件滚动到底部时派发事件，并在suggest组件监听该事件从而实现上滑刷新。</br>
 2.搜索历史的缓存，使用localstorage，为了操作更便捷，引入黄轶老师写的[Storage库-goodStorage](https://github.com/ustbhuangyi/storage)</br>
+
+## 播放器歌曲列表组件（playlist)
+### 总结
+通过mixin使歌曲列表的播放模式可以复用播放器组件的播放模式，包含Js逻辑、计算属性、方法等。
+
+## 添加歌曲组件（add-song）
+### 总结
+1.通过mixin使添加歌曲组件复用search组件相关逻辑。
+2.最近播放列表复用song-list组件
+3.搜索历史列表复用search-list组件
+
+## 用户中心（user-center）
+### 总结
+将用户在播放器、播放列表收藏的歌曲存入缓存，通过vuex获取并展示。

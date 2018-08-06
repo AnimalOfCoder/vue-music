@@ -28,6 +28,7 @@ export const playlistMixin = {
 
 export const playerMixin = {
   computed: {
+    // 播放模式计算
     iconMode() {
       return this.mode === playMode.sequence ? 'icon-sequence' : this.mode === playMode.loop ? 'icon-loop' : 'icon-random'
     },
@@ -40,6 +41,7 @@ export const playerMixin = {
     ])
   },
   methods: {
+    // 改变播放模式
     changeMode() {
       const mode = (this.mode + 1) % 3
       this.setPlayMode(mode)
@@ -53,6 +55,7 @@ export const playerMixin = {
       this.setPlaylist(list)
     },
     resetCurrentIndex(list) {
+      // 找到当前歌曲对应索引
       let index = list.findIndex((item) => {
         return item.id === this.currentSong.id
       })
